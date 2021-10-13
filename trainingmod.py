@@ -15,6 +15,7 @@ import numpy as np
 
 labels = ['rock', 'paper','scissor']
 img_size = 224
+
 def get_data(data_dir):
     data = []
     for label in labels:
@@ -24,10 +25,13 @@ def get_data(data_dir):
             try:
                 img_arr = cv2.imread(os.path.join(path, img))[...,::-1] #convert BGR to RGB format
                 resized_arr = cv2.resize(img_arr, (img_size, img_size)) # Reshaping images to preferred size
+
+                # adding image array along with its label number to data array
                 data.append([resized_arr, class_num])
             except Exception as e:
                 print(e)
     return np.array(data)
+
 #Now we can easily fetch our train and validation data.
 train = get_data('./training_images')
 
@@ -80,7 +84,7 @@ model.summary()
 
 opt = Adam(lr=0.000001)
 model.compile(optimizer = opt , loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True) , metrics = ['accuracy'])
-history = model.fit(x_train,y_train,epochs = 500 )
+history = model.fit(x_train,y_train,epochs = 100 )
 scores = model.evaluate(x_train, y_train, verbose=0)
 print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 model.save("rpsver2model.h5")

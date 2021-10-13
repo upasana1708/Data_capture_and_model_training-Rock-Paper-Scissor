@@ -6,8 +6,6 @@ from tensorflow.keras.layers import Dense, Conv2D , MaxPool2D , Flatten , Dropou
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 
-from sklearn.metrics import classification_report,confusion_matrix
-
 import cv2
 import os
 
